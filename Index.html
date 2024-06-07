@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BulwarkDefender - Play Without Fear</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #fff;
+        color: #000;
+      }
+      header {
+        background: #ff4500;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        display: flex;
+        margin-left: 10px;
+        align-items: center;
+      }
+
+      .brand img {
+        max-width: 50px;
+        margin-right: 10px; /* Adjust as needed */
+      }
+
+      .brand h1 {
+        margin: 0;
+      }
+
+      nav {
+        display: flex;
+      }
+
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        padding: 8px 0;
+      }
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: 10px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1000;
+      }
+      .menu-toggle .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: white;
+      }
+      .hero {
+        text-align: center;
+        padding: 100px 20px;
+        background-image: url("images/gaming-background.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+      }
+      .hero h1 {
+        font-size: 4em;
+        margin: 0.5em 0;
+        color: white;
+      }
+      .hero p {
+        font-size: 1.5em;
+        color: white;
+      }
+      .hero button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        cursor: pointer;
+        background: #ff4500;
+        border: none;
+        color: white;
+        margin-top: 30px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      .hero button:hover {
+        background-color: #ff5722;
+      }
+      .section {
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f4f4f4;
+        margin-top: 20px;
+      }
+      .section h2 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: #000;
+      }
+      .section p {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #555;
+      }
+      .features,
+      .how-it-works,
+      .testimonials,
+      .pricing {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+      .feature,
+      .plan {
+        flex: 1 1 calc(33% - 40px);
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        max-width: 300px;
+        text-align: left;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .feature:hover,
+      .plan:hover {
+        transform: translateY(-5px);
+      }
+      .feature h3,
+      .plan h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      .feature p,
+      .plan p {
+        font-size: 1.1em;
+        color: #666;
+      }
+      .plan button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        cursor: pointer;
+        background: #ff4500;
+        border: none;
+        color: white;
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      .plan button:hover {
+        background-color: #ff5722;
+      }
+      footer {
+        background: #ff4500;
+        color: white;
+        text-align: center;
+        padding: 40px 0;
+        margin-top: 40px;
+      }
+      footer .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      footer a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 1.2em;
+        transition: color 0.3s ease;
+      }
+      footer a:hover {
+        color: #ff4500;
+      }
+      footer .social-links {
+        margin-bottom: 10px;
+      }
+      footer .social-links a {
+        margin: 0 5px;
+        font-size: 1.5em;
+        transition: color 0.3s ease;
+      }
+      footer .social-links a:hover {
+        color: #ff4500;
+      }
+      .partners {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .partner-card {
+        background: rgba(255, 255, 255, 0.9); /* Shaded background */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        margin: 10px;
+        overflow: hidden;
+      }
+
+      .partner-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .partner-card img {
+        width: 100%;
+        height: 45%;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      .partner-details {
+        padding: 20px;
+        max-height: 300px; /* Set a maximum height */
+        overflow: auto; /* Enable scrolling within the card */
+      }
+
+      .partner-details h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .partner-details p {
+        font-size: 0.8em;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .partner-details a {
+        color: #ff4500;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .partner-details a:hover {
+        color: #ff5722;
+      }
+      .full-width {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .about-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 1200px; /* Optional: Max width to keep content readable on very large screens */
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .about-content p {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .service-title {
+        font-size: 2em;
+        color: #ff4500;
+        margin-bottom: 15px;
+      }
+
+      .services-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Center the items horizontally */
+      }
+
+      .service-card {
+        width: 48%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 10px 20px; /* Adjust margin for spacing between cards */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .service {
+        color: #333;
+      }
+
+      .service p {
+        font-size: 1.1em;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        .partner img {
+          max-width: 60px; /* Adjust width for medium screens */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .partner img {
+          max-width: 40px; /* Adjust width for smaller screens */
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 3em;
+        }
+        .hero p {
+          font-size: 1.2em;
+        }
+        .hero button {
+          font-size: 1em;
+        }
+        .feature,
+        .plan {
+          flex: 1 1 calc(50% - 40px);
+        }
+        nav {
+          flex-direction: column;
+          display: none;
+          width: 100%;
+        }
+        nav a {
+          margin: 10px 0;
+          padding: 10px 0;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 2em;
+        }
+        .hero p {
+          font-size: 1em;
+        }
+        .hero button {
+          font-size: 0.8em;
+        }
+        .feature,
+        .plan {
+          flex: 1 1 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="brand">
+          <img src="images/partner1.png" alt="Your Brand Logo" />
+          <h1>Bulwark Defender</h1>
+        </div>
+        <nav>
+          <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#testimonials">Testimonials</a>
+            <!-- <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a> -->
+            <a href="#partners">Partners</a>
+            <a href="#about">About Us</a>
+          </div>
+        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="hero">
+      <h1>Play Without Fear</h1>
+      <p>Ultimate Defense Against Cheat Coders and Trainers</p>
+      <a href="https://www.facebook.com/bulwarkdefender/" target="_blank"
+        ><button>Get Protected Now</button></a
+      >
+    </div>
+
+    <div id="features" class="section">
+      <h2>Why Choose BulwarkDefender?</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>Cutting-Edge Anti-Cheat Technology</h3>
+          <p>
+            Detects and neutralizes cheat trainers and unauthorized code
+            modifications.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Real-Time Defense</h3>
+          <p>
+            Keeps your gaming sessions free from interruptions and exploits.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Fair Play Guarantee</h3>
+          <p>
+            Ensures a level playing field where skill and sportsmanship triumph.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="how-it-works" class="section">
+      <h2>How BulwarkDefender Works</h2>
+      <div class="how-it-works">
+        <div class="feature">
+          <h3>Install BulwarkDefender</h3>
+          <p>Quick and easy installation to get you started.</p>
+        </div>
+        <div class="feature">
+          <h3>Activate Real-Time Protection</h3>
+          <p>
+            Continuous monitoring for cheat trainers and unauthorized
+            modifications.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Enjoy Fair Gameplay</h3>
+          <p>Play your favorite games without fear of cheats.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="testimonials" class="section">
+      <h2>What Gamers Are Saying</h2>
+      <div class="testimonials">
+        <div class="feature">
+          <p>
+            "BulwarkDefender has transformed my gaming experience. No more
+            cheats!"
+          </p>
+        </div>
+        <div class="feature">
+          <p>
+            "Finally, a solution that keeps the playing field level. Highly
+            recommended!"
+          </p>
+        </div>
+        <div class="feature">
+          <p>
+            "Easy to use and highly effective. My games are now cheat-free!"
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="pricing" class="section">
+      <h2>Choose Your Plan</h2>
+      <div class="pricing">
+        <div class="plan">
+          <h3>Basic Plan</h3>
+          <p>Essential protection for casual gamers</p>
+          <p>$4.99/month</p>
+          <button>Choose Basic</button>
+        </div>
+        <div class="plan">
+          <h3>Pro Plan</h3>
+          <p>Advanced protection for competitive gamers</p>
+          <p>$9.99/month</p>
+          <button>Choose Pro</button>
+        </div>
+        <div class="plan">
+          <h3>Ultimate Plan</h3>
+          <p>Comprehensive protection with premium support</p>
+          <p>$14.99/month</p>
+          <button>Choose Ultimate</button>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div id="partners" class="section">
+      <h2>Our Partner Servers</h2>
+      <div class="partners">
+        <div class="partner">
+          <a
+            href="https://www.facebook.com/RanOnlinePHTheReturnEP3"
+            target="_blank"
+          >
+            <img src="images/partner1.png" alt="Partner 1 Logo" />
+            <div class="partner-info"><p>Ran Online PH: The Return</p></div>
+          </a>
+        </div>
+        <div class="partner">
+          <a href="https://www.facebook.com/En5esportsph" target="_blank">
+            <img src="images/partner2.png" alt="Partner 1 Logo" />
+            <div class="partner-info">
+              <p>EN5 ESPorts Phillipines <br />EN5 BABYRAN CLASSIC</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+    <div id="partners" class="section">
+      <h2>Our Partner Servers</h2>
+      <div class="partners">
+        <div class="partner-card">
+          <img src="images/partner1.png" alt="Partner 1 Logo" />
+          <div class="partner-details">
+            <h3>Ran Online PH: The Return</h3>
+            <p>
+              Classic Drop Ran Online Max Level: 150 Last Skill: 127 Skill
+              Points to Unlock the Skill (No Quest needed) Mid to High Rate Exp
+              Party Leveling Combo & Sync
+            </p>
+            <a
+              href="https://www.facebook.com/RanOnlinePHTheReturnEP3"
+              target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="partner-card">
+          <img src="images/partner2.png" alt="Partner 2 Logo" />
+          <div class="partner-details">
+            <h3>EN5 ESPorts Philippines</h3>
+            <p>EN5 BABYRAN CLASSIC</p>
+            <p>
+              BabyRAN Gameplay BabyRan Skills BabyRAN Maps BabyRAN Item Drops 6
+              Official BabyRAN Classes Smooth and High Quality Graphics Ingame
+              Registration and Item Shop Brawler,Shaman,Swordsman,Archer,Extreme
+              and Gunner
+            </p>
+            <a href="https://www.facebook.com/En5esportsph" target="_blank"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <!-- Add more partner cards as needed -->
+      </div>
+    </div>
+
+    <div id="services" class="section">
+      <h2>Other Services</h2>
+      <div class="services-content">
+        <div class="service-card">
+            <div class="service">
+                <h3 class="service-title">Ran Development</h3>
+                <p>Specialized in Ran Online game development, our team can assist you in creating, maintaining, and optimizing your Ran Online game server to provide the best gaming experience for your players.</p>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service">
+                <h3 class="service-title">Ran Server Security</h3>
+                <p>Protect your Ran Online server from unauthorized access, exploits, and attacks with our comprehensive server security solutions tailored specifically for Ran Online environments.</p>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service">
+                <h3 class="service-title">DDoS Protection</h3>
+                <p>Safeguard your game server infrastructure from DDoS attacks that can disrupt gameplay and cause downtime. Our DDoS protection services ensure uninterrupted gaming experiences for your players.</p>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service">
+                <h3 class="service-title">Ran Server Setup</h3>
+                <p>Let our team handle the setup and configuration of your Ran Online server, ensuring optimal performance and stability for your gaming community.</p>
+            </div>
+        </div>
+        <!-- Add more service cards as needed -->
+      </div>
+    </div>
+
+    <div id="about" class="section full-width">
+      <h2>About Us</h2>
+      <div class="about-content">
+        <p>
+          BulwarkDefender is dedicated to providing the ultimate protection
+          against cheat coders and trainers. Our mission is to ensure a fair and
+          enjoyable gaming experience for all players. Our team of experts works
+          tirelessly to stay ahead of the latest threats and keep your games
+          cheat-free.
+        </p>
+        <p>
+          Founded in 2024, BulwarkDefender has quickly become a trusted name in
+          gaming security. We believe in the power of fair play and are
+          committed to maintaining a level playing field for gamers worldwide.
+        </p>
+        <p>
+          At BulwarkDefender, we understand the frustration and disruption that
+          cheaters can cause in online gaming communities. That's why we've
+          developed cutting-edge technology and deployed it across a wide range
+          of games, from competitive shooters to massive multiplayer online
+          role-playing games (MMORPGs).
+        </p>
+        <p>
+          Our dedicated team of developers, engineers, and security experts are
+          passionate about gaming and are driven by the desire to create a safe
+          and secure environment for all players. We continuously monitor and
+          update our systems to stay one step ahead of the latest cheat
+          techniques and ensure that our users can enjoy their favorite games
+          without fear of unfair advantages.
+        </p>
+        <p>
+          Join BulwarkDefender today and experience gaming as it should be:
+          fair, fun, and free from cheats.
+        </p>
+        <p>
+          Our commitment to excellence extends beyond just providing top-notch
+          security solutions. We also prioritize customer satisfaction and
+          strive to deliver exceptional support and service to all our users.
+          Whether you're a casual gamer or a professional esports athlete, we're
+          here to help you protect your gaming experience and enjoy playing to
+          the fullest.
+        </p>
+        <p>
+          Transparency and integrity are at the core of everything we do at
+          BulwarkDefender. We believe in honest communication with our users and
+          partners, and we're always open to feedback and suggestions for
+          improvement. Your trust and confidence in our platform mean everything
+          to us, and we're committed to upholding the highest standards of
+          professionalism and accountability.
+        </p>
+        <p>
+          As passionate gamers ourselves, we understand the importance of
+          community and camaraderie in the gaming world. That's why we're
+          dedicated to fostering a supportive and inclusive gaming community
+          where players can connect, compete, and collaborate in a positive and
+          respectful environment.
+        </p>
+        <p>
+          At BulwarkDefender, innovation is in our DNA. We're constantly
+          exploring new technologies and strategies to stay ahead of the curve
+          and provide our users with the most advanced and effective security
+          solutions available. Our team is always pushing the boundaries of
+          what's possible in gaming security, and we're excited to continue
+          pushing the industry forward.
+        </p>
+        <p>
+          Join us in our mission to defend the integrity of online gaming and
+          ensure that every player has the opportunity to compete on a level
+          playing field. Together, we can create a safer, fairer, and more
+          enjoyable gaming experience for everyone.
+        </p>
+      </div>
+    </div>
+
+    <footer id="contact">
+      <!--  <p>Contact Us: https://www.facebook.com/bulwarkdefender/</p>
+<div class="footer-links">
+    <a href="#">Home</a>
+    <a href="#">Features</a>
+    <a href="#">About</a>
+    <a href="#">Pricing</a>
+    <a href="#">Contact</a>
+    <a href="#">FAQ</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+</div>
+<div class="social-links">
+    <a href="#">Facebook</a>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+    <a href="#">YouTube</a>
+</div> -->
+      <p>© 2024 BulwarkDefender. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        const navMenu = document.querySelector("nav");
+        if (window.innerWidth <= 768) {
+          navMenu.style.display =
+            navMenu.style.display === "flex" ? "none" : "flex";
+        } else {
+          navMenu.style.display = "flex";
+        }
+      }
+
+      // Call toggleMenu initially
+      toggleMenu();
+
+      // Listen for window resize event
+      window.addEventListener("resize", function () {
+        // Re-toggle the menu on resize
+        toggleMenu();
+      });
+    </script>
+  </body>
+</html>
